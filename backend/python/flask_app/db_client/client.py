@@ -36,8 +36,22 @@ def query_pairs(doc=None, limit=None):
 
     cursor = db_pairs_col.find(doc) if limit is None else db_pairs_col.find(doc).limit(limit)
     documents = []
-    for data in cursor:
-        documents.append({"a_url": query_images({"_id": data["a_id"]}, 1)[0]["url"],
-            "b_url": query_images({"_id": data["b_id"]}, 1)[0]["url"]})
+    for pair_data in cursor:
+        a_img_data = query_images({"_id": pair_data["a_id"]}, 1)[0]
+        b_img_data = query_images({"_id": pair_data["b_id"]}, 1)[0]
+        documents.append({
+            "a": {
+                "url": a_img_data["url"],
+                "votes": a_img_data["votes"],
+                },
+            "b": {
+                "url": b_img_data["url"],
+                "votes": b_img_data["votes"]
+                },
+            "meta": {
+                "influencer": "no-id-yet",
+                "tags": pair_data["tags"]
+                }
+            })
     return documents
 
