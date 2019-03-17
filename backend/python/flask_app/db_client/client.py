@@ -58,6 +58,7 @@ def query_pairs(doc=None, limit=0, ignore_list=set()):
                 "tags": pair_data["tags"]
                 }
             })
+        ignore_list.add(pair_data["_id"])
 
     return documents
 
