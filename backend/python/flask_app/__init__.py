@@ -3,3 +3,8 @@ app = Flask(__name__)
 
 import flask_app.feed
 
+@app.route("/")
+def blank():
+    return ""
+
+
