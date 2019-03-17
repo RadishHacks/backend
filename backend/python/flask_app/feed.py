@@ -10,5 +10,5 @@ Anonymous feed query function.
 @app.route("/feed", methods=["GET"])
 def get_feed():
     limit = request.args.get("size", default=1, type=int)
-    return json.dumps(client.query_images(None, limit))
+    return json.dumps(client.query_pairs(None, limit))
 
