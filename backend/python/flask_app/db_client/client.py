@@ -28,15 +28,24 @@ def query_images(doc=None, limit=None):
 """
 Forwards query to pairs col.
 If doc is null, then it's assumed to be empty.
-TODO: Half this stuff needs to be in a config file
+TODO: Half this stuff needs to be in a config file.
 """
-def query_pairs(doc=None, limit=None):
+def query_pairs(doc=None, limit=None, ignore_list=set()):
     if doc is None:
         doc = {}
 
-    cursor = db_pairs_col.find(doc) if limit is None else db_pairs_col.find(doc).limit(limit)
+    cursor = db_pairs_col.find(doc)
     documents = []
+    count = 0
     for pair_data in cursor:
+        if count >= limit:
+            break
+        if pair_data["_id"] in ignore_list:
+            continue
+
+        count += 1
+        ignore_list.add(pair_data["_id"])
+
         a_img_data = query_images({"_id": pair_data["a_id"]}, 1)[0]
         b_img_data = query_images({"_id": pair_data["b_id"]}, 1)[0]
         documents.append({
@@ -53,5 +62,6 @@ def query_pairs(doc=None, limit=None):
                 "tags": pair_data["tags"]
                 }
             })
+
     return documents
 
