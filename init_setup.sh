@@ -1,3 +1,4 @@
+#!/bin/bash
 #### DO NOT RUN THIS TWICE ####
 
 echo "Running on:"
@@ -14,4 +15,6 @@ pip install -r requirements.txt
 echo "Run source backenv/bin/activate to enter virtualenv"
 echo "Installed packages:"
 cat requirements.txt
+
+echo "Don't forget to run the private stuff!"
 
