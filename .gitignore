@@ -1,2 +1,4 @@
 backenv/
+*.pyc
+backend/python/**/__pycache__/
 
