@@ -3,3 +3,4 @@ backenv/
 backend/python/**/__pycache__/
 **/db_config.py
 
+.idea/
