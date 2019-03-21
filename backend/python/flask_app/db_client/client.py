@@ -11,6 +11,9 @@ def _prune(doc):
     doc.pop("_id", None)
     return doc
 
+def get_col(col_name):
+    return db_core[col_name]
+
 """
 Forwards query to images col.
 If doc is null, then it's assumed to be empty.
@@ -61,4 +64,23 @@ def query_pairs(doc=None, limit=0, ignore_list=set()):
         ignore_list.add(pair_data["_id"])
 
     return documents
+
+
+"""
+Queries arbitrary object
+"""
+def query_object(db_col, key):
+    cursor = db_col.find({"_id": key}).limit(1)
+    if cursor.count() == 0:
+        return None
+    return cursor[0]["data"]
+
+"""
+Stores arbitrary object.
+"""
+def insert_object(db_col, key, obj):
+    if db_col.find({"_id": key}).count() != 0:
+        db_col.find_one_and_update({"_id": key}, {"data": obj})
+    else:
+        db_col.insert_one({"_id": key, "data": obj})
 
