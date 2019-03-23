@@ -5,3 +5,5 @@ backend/python/**/__pycache__/
 
 .idea/
 venv/
+
+.vscode/
