@@ -32,11 +32,27 @@ class ImagePair(Document):
         img_b = Image(image_url=image_urls[1])
         return ImagePair(images=[img_a, img_b]).save()
 
+    def get_image_pairs(self, count, offset):
+        return ImagePair.objects[offset : count + offset]
+
     def add_tags(self, image_pair_id, tags=[]):
         if tags:
             ImagePair.objects(id=image_pair_id).update_one(push_all__tags=tags)
 
     def add_vote(self, image_pair_id, idx, voter_id):
         image_pair = ImagePair.objects(id=image_pair_id)
-        image_pair.images[idx].voter_ids.append(voter_id)
-        image_pair.save()
+        if voter_id not in image_pair.images[idx]:
+            image_pair.images[idx].voter_ids.append(voter_id)
+            image_pair.save()
+            return True
+        return False
+
+    def _parse_image_data(image_pairs):
+        ret = []
+        for ip in image_pairs:
+            parsed_ip = ip.to_mongo().to_dict()
+            for image in parsed_ip["images"]:
+                image["vote_count"] = len(image["voter_ids"])
+                del image["voter_ids"]
+            ret.append(parsed_ip)
+        return ret
