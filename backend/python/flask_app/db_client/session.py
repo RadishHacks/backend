@@ -1,7 +1,7 @@
 from mongoengine import *
+from flask_app.db_client.db_config import *
+connect(DB_NAME, host=DB_URL, port=DB_PORT)
 import datetime
-# TODO: Leo Liu
-# connect(<name_of_database>)
 
 """ JSON example
 {
