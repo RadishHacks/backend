@@ -7,3 +7,6 @@ backend/python/**/__pycache__/
 venv/
 
 .vscode/
+
+*.pem
+*.ppk
