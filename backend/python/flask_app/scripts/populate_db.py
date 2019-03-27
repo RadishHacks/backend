@@ -17,5 +17,4 @@ BEE_IMGS = ["5960918e9f202.jpeg", "862.jpg", "86c.png", "9a5.jpg", "e56.jpeg",
 imgs = [S3_HOST + BEE_FOLDER + img_link for img_link in BEE_IMGS]
 
 for idx in range(int(len(imgs)/2)):
-    print('hi')
-    # ImagePair.create_image_pair([imgs[idx], imgs[idx+1]])
+    ImagePair.create_image_pair([imgs[idx], imgs[idx+1]])
