@@ -1,8 +1,10 @@
 #!/usr/bin/python
-
 from mongoengine import *
 from ..db_client.image_pair import ImagePair
 
+
+# DB_NAME parameter is complete useless as it uses same param as ImagePair file
+# TODO: refactor so we don't replace abswap all the time
 DB_NAME="abswap-dev"
 S3_HOST="https://s3.us-east-2.amazonaws.com/abswap-images/"
 db = connect(DB_NAME)

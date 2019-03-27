@@ -6,7 +6,7 @@ from flask_app.db_client.session import Session
 def new_session():
     session = Session.create_session()
     results = {
-        "session_id": session.id.toString()
+        "session_id": session.id
     }
     return make_response(jsonify(results), 200)
 

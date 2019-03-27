@@ -20,4 +20,4 @@ def get_feed():
     # TODO: add sessions eventually for unique images feed
     image_pairs = ImagePair.get_image_pairs(count, offset)
     parsed_image_pairs = ImagePair._parse_image_data(image_pairs)
-    return make_response(jsonify({"image_pairs": image_pairs}), 200)
+    return make_response(jsonify({"image_pairs": parsed_image_pairs}), 200)
