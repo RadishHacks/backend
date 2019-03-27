@@ -3,12 +3,10 @@
 from mongoengine import *
 from ..db_client.image_pair import ImagePair
 
-# change this to abswap for prod
-DB_NAME="abswap-dev"
+DB_NAME="abswap"
 S3_HOST="https://s3.us-east-2.amazonaws.com/abswap-images/"
 db = connect(DB_NAME)
 db.drop_database(DB_NAME)
-db = connect(DB_NAME)
 
 BEE_FOLDER = "bee_memes/"
 BEE_IMGS = ["5960918e9f202.jpeg", "862.jpg", "86c.png", "9a5.jpg", "e56.jpeg",
