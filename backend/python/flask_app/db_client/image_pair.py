@@ -1,5 +1,6 @@
 from mongoengine import *
 from flask_app.db_client.db_config import *
+from bson.objectid import ObjectId
 connect(DB_NAME, host=DB_URL, port=DB_PORT)
 
 import datetime
@@ -44,8 +45,8 @@ class ImagePair(Document):
 
     @classmethod
     def add_vote(cls, image_pair_id, idx, voter_id):
-        image_pair = ImagePair.objects(id=image_pair_id)
-        if voter_id not in image_pair.images[idx]:
+        image_pair = ImagePair.objects(id=image_pair_id).first()
+        if ObjectId(voter_id) not in image_pair.images[idx].voter_ids:
             image_pair.images[idx].voter_ids.append(voter_id)
             image_pair.save()
             return True

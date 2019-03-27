@@ -25,7 +25,8 @@ def vote_image_pair():
     image_pair_id = body["image_pair_id"]
     image_idx = body["image_idx"]
 
-    if ImagePair.add_vote(image_pair_id, image_idx, voter_id):
+    if ImagePair.add_vote(image_pair_id, image_idx, session_id):
         Session.update_voted_history(session_id, image_pair_id)
-
-    return make_response(jsonify({"success": True}), 200)
+        return make_response(jsonify({"success": True}), 200)
+    else:
+        reutnr make_response(jsonify({"error": "user has already voted"}), 400)
