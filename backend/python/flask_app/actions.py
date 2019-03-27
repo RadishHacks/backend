@@ -29,4 +29,4 @@ def vote_image_pair():
         Session.update_voted_history(session_id, image_pair_id)
         return make_response(jsonify({"success": True}), 200)
     else:
-        reutnr make_response(jsonify({"error": "user has already voted"}), 400)
+        return make_response(jsonify({"error": "user has already voted"}), 400)
