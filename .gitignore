@@ -10,3 +10,4 @@ venv/
 
 *.pem
 *.ppk
+*.pub
