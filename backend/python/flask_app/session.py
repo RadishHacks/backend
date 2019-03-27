@@ -1,20 +1,25 @@
-import time
-import uuid
+from flask import request, make_response, jsonify
+from flask_app import app
+from flask_app.db_client.session import Session
 
-class Session:
-    def __init__(self, feed_request_size=10):
-        self.session_id = uuid.uuid4()
-        
-        # TODO
-        #self.feed_request_size = feed_request_size
-        
-        self.timestamp = time.time()
+@app.route("/session", methods=["POST"])
+def new_session():
+    session = Session.create_session()
+    results = {
+        "session_id": session.id
+    }
+    return make_response(jsonify(results), 200)
 
-        self.image_pair_history = set()
+@app.route("/session/update", methods=["POST"])
+def update_session():
+    if request.is_json is not True:
+        return make_response(jsonify({"error": "include application/json in header"}), 400)
 
-    def update_image_pair_history(s):
-        self.image_pair_history.union(s)
+    body = request.get_json()
+    if "session_id" not in body:
+        return make_response(jsonify({"error": "include session_id to update session"}), 400)
 
-    def update_timestamp():
-       self.timestamp = time.time()
+    session_id = body["session_id"]
 
+    Session.update_active_session(session_id)
+    return make_response(jsonify({"success": True}), 200)

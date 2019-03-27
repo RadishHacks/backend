@@ -1,6 +1,7 @@
 from mongoengine import *
 from flask_app.db_client.db_config import *
 connect(DB_NAME, host=DB_URL, port=DB_PORT)
+
 import datetime
 
 """ JSON example
@@ -16,11 +17,14 @@ class Session(Document):
     created_timestamp = DateTimeField(required=True, default=datetime.datetime.utcnow)
     image_pairs_voted = ListField(ObjectIdField())
 
-    def create_session(self):
+    @classmethod
+    def create_session(cls):
         return Session().save()
 
-    def update_active_session(self, session_id):
+    @classmethod
+    def update_active_session(cls, session_id):
         Session.objects(id=session_id).update_one(set__last_active_timestamp=datetime.datetime.utcnow())
 
-    def update_voted_history(self, session_id, image_pair_id):
+    @classmethod
+    def update_voted_history(cls, session_id, image_pair_id):
         Session.objects(id=session_id).update_one(push__image_pairs_voted=image_pair_id)
