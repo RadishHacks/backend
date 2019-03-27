@@ -3,7 +3,7 @@
 from mongoengine import *
 from ..db_client.image_pair import ImagePair
 
-DB_NAME="abswap"
+DB_NAME="abswap-dev"
 S3_HOST="https://s3.us-east-2.amazonaws.com/abswap-images/"
 db = connect(DB_NAME)
 db.drop_database(DB_NAME)
