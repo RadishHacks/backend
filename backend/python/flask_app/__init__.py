@@ -21,4 +21,4 @@ import flask_app.actions
 
 @app.route("/")
 def blank():
-    return ""
+    return "Hello World!"
