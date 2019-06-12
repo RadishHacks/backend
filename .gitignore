@@ -8,6 +8,7 @@ venv/
 
 .vscode/
 
+*richardcao*
 *.pem
 *.ppk
 *.pub
